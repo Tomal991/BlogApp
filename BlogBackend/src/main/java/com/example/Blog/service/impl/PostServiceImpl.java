@@ -6,6 +6,9 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.Blog.exceptions.ResourceNotFoundException;
@@ -54,9 +57,14 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public List<PostDto> getAllPosts() {
+	public List<PostDto> getAllPosts(Integer pageNumber, Integer pageSize) {
 
-		List<Post> posts = this.postRepository.findAll();
+		Pageable pageable = PageRequest.of(pageNumber, pageSize);
+
+		Page<Post> pagePost = this.postRepository.findAll(pageable);
+
+		List<Post> posts = pagePost.getContent();
+
 		List<PostDto> postDtos = posts.stream().map((post) -> this.modelMapper.map(post, PostDto.class))
 				.collect(Collectors.toList());
 		return postDtos;
@@ -76,9 +84,9 @@ public class PostServiceImpl implements PostService {
 		post.setTitle(postDto.getTitle());
 		post.setContent(postDto.getContent());
 		post.setImageName(postDto.getImageName());
-		
-		Post updatedpost=this.postRepository.save(post);
-		
+
+		Post updatedpost = this.postRepository.save(post);
+
 		return this.modelMapper.map(updatedpost, PostDto.class);
 	}
 

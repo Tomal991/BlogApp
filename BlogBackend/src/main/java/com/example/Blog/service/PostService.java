@@ -11,7 +11,7 @@ public interface PostService {
 	
 	 PostDto createPost(PostDto postDto,Long categoryId,Long userId);
 
-	 List<PostDto> getAllPosts();
+	 List<PostDto> getAllPosts(Integer pageNumber,Integer pageSize);
 
 	 PostDto getPostById(Long postId);
 
