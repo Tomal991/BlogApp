@@ -11,11 +11,11 @@ public interface PostService {
 	
 	 PostDto createPost(PostDto postDto,Long categoryId,Long userId);
 
-	 List<Post> getAllPosts();
+	 List<PostDto> getAllPosts();
 
-	 Post getPostById(Long postId);
+	 PostDto getPostById(Long postId);
 
-	 Post updatepost(PostDto postDto, Long postId);
+	 PostDto updatepost(PostDto postDto, Long postId);
 
 	 void deletePost(Long postId);
 	 
@@ -23,7 +23,7 @@ public interface PostService {
 	 
 	 List<PostDto> getPostByUser(Long userid);
 	 
-	 List<Post> searchPost(String title);
+	 List<PostDto> searchPost(String title);
 	 
 	 
 }
