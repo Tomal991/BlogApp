@@ -2,6 +2,7 @@ package com.example.Blog.service.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +53,9 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	public List<Post> getAllPosts() {
-		// TODO Auto-generated method stub
+		
+		
+		
 		return null;
 	}
 
@@ -75,15 +78,22 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public List<Post> getPostByCategory(Long categoryId) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<PostDto> getPostByCategory(Long categoryId) {
+		Category category=this.categoryRepository.findById(categoryId).orElseThrow(()->new ResourceNotFoundException("category", "categoryId", categoryId));
+		List<Post>posts=this.postRepository.findAllByCategory(category);		
+		
+		 List<PostDto> postDtos=posts.stream().map((post)->this.modelMapper.map(post,PostDto.class)).collect(Collectors.toList());
+		return postDtos;
 	}
 
 	@Override
-	public List<Post> getPostByUser(Long userid) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<PostDto> getPostByUser(Long userId) {
+		User user=this.userRepository.findById(userId).orElseThrow(()->new ResourceNotFoundException("user", "userId", userId));
+		List<Post>posts=this.postRepository.findAllByUser(user);		
+		
+		 List<PostDto> postDtos=posts.stream().map((post)->this.modelMapper.map(post,PostDto.class)).collect(Collectors.toList());
+		return postDtos;
+		 
 	}
 
 	@Override
