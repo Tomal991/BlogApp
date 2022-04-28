@@ -23,6 +23,7 @@ import com.example.Blog.playloads.CategoryDto;
 import com.example.Blog.playloads.PostDto;
 import com.example.Blog.playloads.PostResponse;
 import com.example.Blog.service.PostService;
+import com.example.Blog.utils.Constants;
 
 @RestController
 @RequestMapping("/api/post")
@@ -41,10 +42,10 @@ public class PostController {
 
 	@GetMapping("/")
 	public ResponseEntity<PostResponse> getAllPosts(
-			@RequestParam(value = "pageNumber", defaultValue = "1", required = false) Integer pageNumber,
-			@RequestParam(value = "pageSize", defaultValue = "5", required = false) Integer pageSize,
-			@RequestParam(value = "sortBy", defaultValue = "postId", required = false) String sortBy,
-			@RequestParam(value = "sortDir", defaultValue = "asc", required = false) String sortDir) {
+			@RequestParam(value = "pageNumber", defaultValue = Constants.PAGE_NUMBER, required = false) Integer pageNumber,
+			@RequestParam(value = "pageSize", defaultValue = Constants.PAGE_SIZE, required = false) Integer pageSize,
+			@RequestParam(value = "sortBy", defaultValue = Constants.SORT_BY, required = false) String sortBy,
+			@RequestParam(value = "sortDir", defaultValue = Constants.SORT_DIR, required = false) String sortDir) {
 		PostResponse postResponse = this.postService.getAllPosts(pageNumber, pageSize, sortBy, sortDir);
 		return new ResponseEntity<PostResponse>(postResponse, HttpStatus.OK);
 	}
