@@ -16,6 +16,7 @@ import com.example.Blog.model.Category;
 import com.example.Blog.model.Post;
 import com.example.Blog.model.User;
 import com.example.Blog.playloads.PostDto;
+import com.example.Blog.playloads.PostResponse;
 import com.example.Blog.repository.CategoryRepository;
 import com.example.Blog.repository.PostRepository;
 import com.example.Blog.repository.UserRepository;
@@ -57,7 +58,7 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public List<PostDto> getAllPosts(Integer pageNumber, Integer pageSize) {
+	public PostResponse getAllPosts(Integer pageNumber, Integer pageSize) {
 
 		Pageable pageable = PageRequest.of(pageNumber, pageSize);
 
@@ -67,7 +68,16 @@ public class PostServiceImpl implements PostService {
 
 		List<PostDto> postDtos = posts.stream().map((post) -> this.modelMapper.map(post, PostDto.class))
 				.collect(Collectors.toList());
-		return postDtos;
+
+		PostResponse postResponse = new PostResponse();
+		postResponse.setContent(postDtos);
+		postResponse.setPageNumber(pagePost.getNumber());
+		postResponse.setPageSize(pagePost.getSize());
+		postResponse.setTotalElements(pagePost.getTotalElements());
+		postResponse.setTotalPages(pagePost.getTotalPages());
+		postResponse.setLastpage(pagePost.isLast());
+
+		return postResponse;
 	}
 
 	@Override

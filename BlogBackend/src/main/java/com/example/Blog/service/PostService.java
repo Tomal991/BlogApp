@@ -5,25 +5,24 @@ import java.util.List;
 import com.example.Blog.model.Post;
 import com.example.Blog.playloads.CategoryDto;
 import com.example.Blog.playloads.PostDto;
+import com.example.Blog.playloads.PostResponse;
 
 public interface PostService {
 
-	
-	 PostDto createPost(PostDto postDto,Long categoryId,Long userId);
+	PostDto createPost(PostDto postDto, Long categoryId, Long userId);
 
-	 List<PostDto> getAllPosts(Integer pageNumber,Integer pageSize);
+	PostResponse getAllPosts(Integer pageNumber, Integer pageSize);
 
-	 PostDto getPostById(Long postId);
+	PostDto getPostById(Long postId);
 
-	 PostDto updatepost(PostDto postDto, Long postId);
+	PostDto updatepost(PostDto postDto, Long postId);
 
-	 void deletePost(Long postId);
-	 
-	 List<PostDto> getPostByCategory(Long categoryId);
-	 
-	 List<PostDto> getPostByUser(Long userid);
-	 
-	 List<PostDto> searchPost(String title);
-	 
-	 
+	void deletePost(Long postId);
+
+	List<PostDto> getPostByCategory(Long categoryId);
+
+	List<PostDto> getPostByUser(Long userid);
+
+	List<PostDto> searchPost(String title);
+
 }

@@ -21,6 +21,7 @@ import com.example.Blog.model.Post;
 import com.example.Blog.playloads.ApiResponse;
 import com.example.Blog.playloads.CategoryDto;
 import com.example.Blog.playloads.PostDto;
+import com.example.Blog.playloads.PostResponse;
 import com.example.Blog.service.PostService;
 
 @RestController
@@ -39,11 +40,11 @@ public class PostController {
 	}
 
 	@GetMapping("/")
-	public ResponseEntity<List<PostDto>> getAllPosts(
+	public ResponseEntity<PostResponse> getAllPosts(
 			@RequestParam(value = "pageNumber", defaultValue = "1", required = false) Integer pageNumber,
 			@RequestParam(value = "pageSize", defaultValue = "5", required = false) Integer pageSize) {
-		List<PostDto> postDtos = this.postService.getAllPosts(pageNumber,pageSize);
-		return new ResponseEntity<List<PostDto>>(postDtos, HttpStatus.OK);
+		PostResponse postResponse = this.postService.getAllPosts(pageNumber, pageSize);
+		return new ResponseEntity<PostResponse>(postResponse, HttpStatus.OK);
 	}
 
 	@GetMapping("/{postId}")
