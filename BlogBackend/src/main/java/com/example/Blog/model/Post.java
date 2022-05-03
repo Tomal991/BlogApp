@@ -2,7 +2,10 @@ package com.example.Blog.model;
 
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -49,6 +53,10 @@ public class Post {
 	
 	@ManyToOne()
 	private User user;
+	
+	@OneToMany(mappedBy = "post",cascade = CascadeType.ALL)
+	private Set<Comment> comments=new HashSet<>();
+	
 	
 	
 }
