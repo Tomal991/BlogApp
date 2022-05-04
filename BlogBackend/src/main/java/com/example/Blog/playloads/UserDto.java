@@ -1,5 +1,8 @@
 package com.example.Blog.playloads;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -31,4 +34,6 @@ public class UserDto {
 
 	@NotEmpty
 	private String about;
+	
+	private Set<CommentDto> comments=new HashSet<>();
 }
